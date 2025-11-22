@@ -4,14 +4,15 @@ This repository contains my personal QMK keyboard configurations using the QMK U
 
 ## Keyboards
 
-### a_test - Handwired Split Dactyl Manuform with Trackball
+### a_test - Handwired 7x5 Cosmos Dactyl with Trackball
 
-![Cosmos Trackball Split Keyboard](./a_test_render.png)
+![Cosmos Trackball Split Keyboard](./images/a_test_render.png)
+![Wiring](./images/a_test_wiring.png)
 
 A handwired split ergonomic keyboard with:
 
 - **Controllers**: RP2040-Zero (both sides)
-- **Trackball**: PMW3389 on the right side
+- **Trackball**: PMW3389 on the right side only (for now)
 - **Keys**: 70 keys total (5 rows × 7 columns per side)
 - **Communication**: Serial USART between halves
 - **Features**: Auto-mouse layer support, Caps Word
