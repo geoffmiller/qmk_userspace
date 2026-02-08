@@ -1,0 +1,34 @@
+{
+  "keyboard_name": "PMW3389 Trackball Tester",
+  "manufacturer": "Geoff's Amazing Keyboard Co.",
+  "maintainer": "geoff",
+  "bootloader": "rp2040",
+  "processor": "RP2040",
+  "url": "",
+  "usb": {
+    "device_version": "1.0.0",
+    "pid": "0x5442",
+    "vid": "0x3435"
+  },
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "bootmagic": false,
+    "command": false,
+    "console": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false
+  },
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+    "cols": ["GP0"],
+    "rows": ["GP1"]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [{ "matrix": [0, 0], "x": 0, "y": 0, "label": "K00" }]
+    }
+  }
+}

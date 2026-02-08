@@ -1,22 +1,39 @@
 # QMK Userspace - Geoff's Keyboards
 
-This repository contains my personal QMK keyboard configurations using the QMK Userspace feature.
+This repository contains my personal QMK keyboard configurations using the QMK Userspace feature. It includes multiple handwired split ergonomic keyboards, all featuring RP2040-based controllers and PMW3389 trackball sensors.
 
 ## Keyboards
 
-### a_test - Handwired 7x5 Cosmos Dactyl with Trackball
+| Keyboard                                                    | Keys | Controller          | Split            | Trackball  | VIA |
+| ----------------------------------------------------------- | ---- | ------------------- | ---------------- | ---------- | --- |
+| [a_test](keyboards/handwired/a_test/)                       | 70   | Raspberry Pi Pico   | ✅ UART / TRRS   | Right side | ❌  |
+| [charb_zero](keyboards/handwired/charb_zero/)               | 60   | RP2040-Zero         | ✅ UART / TRRS   | Right side | ❌  |
+| [ergo_skree_v1](keyboards/handwired/ergo_skree_v1/)         | 72   | Pi Pico + Pico Flex | ✅ USART / USB-C | Both sides | ✅  |
+| [pmw3389_tb_tester](keyboards/handwired/pmw3389_tb_tester/) | 1    | RP2040-Zero         | ❌               | Yes        | ❌  |
+
+### [a_test](keyboards/handwired/a_test/) - Cosmos Dactyl 7x5
 
 ![Cosmos Trackball Split Keyboard](./images/a_test_render.png)
-![Wiring](./images/a_test_wiring.png)
 
-A handwired split ergonomic keyboard with:
+A handwired 5×7 split ergonomic keyboard generated with the [Cosmos Dactyl generator](https://ryanis.cool/cosmos/beta). 70 keys, PMW3389 trackball on the right side, full-duplex USART over TRRS, auto-mouse layer, and Caps Word.
 
-- **Controllers**: RP2040-Zero (both sides)
-- **Trackball**: PMW3389 on the right side only (for now)
-- **Keys**: 70 keys total (5 rows × 7 columns per side)
-- **Communication**: Serial USART between halves
-- **Features**: Auto-mouse layer support, Caps Word
-- **3D Print Files**: [Cosmos Generator](https://ryanis.cool/cosmos/beta#cm:CpQCChYSBRCASyAnEgUQkEEgExICIAASADgxChYSBRCAVyAnEgUQkE0gExICIAASADgdCi4SCRCAYyAnQICAKBIJEJBZIBNAgIAoEgYgAECAgCgSBxCwL0CAgCg4CECA8KQBChkSBRCAbyAnEgUQkGUgExICIAASAxCwOzgKCigSCBCAFyAnQIBQEggQkHEgE0CAWBIFIABAgFASA0CAUDgeQICGivABCiESBRCAIyAnEgQQECATEgYQoIAKIAASAhAwODJAgIaK8AIKFRIFEIA/ICcSChAQIBNAI0iAhh44RQolEhAQECATQOui/QFI2YaekO4BEg8gAED/h4i5B0jZhp6AngQ4WRgAQOiFoK7wVUjcoJdgCpUBCj4SERAgQIKD2LMBSIOdvKP5AVAdEhFAmoSGyAVIh52EnsDwAVCqARITCIAoEEBAqJiGuBxIh52EHlDyAlCafQocEhQQMECYg8CMsFhIh52EnpD/AlC6BDCAIFDofAobEhQQQCAAMMgBQJmUm5ADSIDAruDYAjCWIDgAGAoiBRDIASAAMIAwQNuRpJzwN0iEj5TWoHgQAiILCMMBEMMBGAAg0AU4AoIBAgQCWEdoAA==)
+### [charb_zero](keyboards/handwired/charb_zero/) - Charybdis 4x6
+
+![Charb Zero](./images/charb_zero.png)
+
+A Charybdis-style 4×6 split ergonomic keyboard. 60 keys, PMW3389 trackball on the right side, full-duplex USART over TRRS, auto-mouse layer, and Caps Word.
+
+### [ergo_skree_v1](keyboards/handwired/ergo_skree_v1/) - Kinesis Advantage Style
+
+![Ergo Skree V1](./images/ergo_skree_v1.png)
+
+A Kinesis Advantage 2 style split ergo using the [Pico Flex](https://skree.us/products/pico-flex) breakout board from TheBigSkree. 72 keys, PMW3389 trackball on both sides, full-duplex USART over USB-C cross-link, VIA support, auto-mouse layer, and Caps Word.
+
+### [pmw3389_tb_tester](keyboards/handwired/pmw3389_tb_tester/) - Trackball Test Jig
+
+A minimal single-key test board for verifying PMW3389 trackball sensor wiring and functionality. Not a daily-driver — just a hardware verification jig.
+
+---
 
 ## Setup
 
@@ -50,171 +67,23 @@ A handwired split ergonomic keyboard with:
 
 ## Flashing
 
-### Initial Setup (One-time)
-
-To ensure the correct handedness for each side, use the specific keymaps for each half. This stores the handedness in EEPROM so it persists across firmware updates.
-
-**Flash Left Side:**
-Connect the left half in bootloader mode and run:
+Each keyboard's README has specific flashing instructions. The general pattern is:
 
 ```bash
-qmk flash -kb handwired/a_test -km force_left
+qmk flash -kb handwired/<keyboard_name> -km default
 ```
-
-**Flash Right Side:**
-Connect the right half in bootloader mode and run:
-
-```bash
-qmk flash -kb handwired/a_test -km force_right
-```
-
-### Regular Updates
-
-After the initial setup, you can flash the default keymap to either side (or both) and they will remember their handedness:
-
-```bash
-qmk flash -kb handwired/a_test -km default
-```
-
-**Note:** You only need to use `force_left` or `force_right` again if you clear the EEPROM or perform a factory reset.
 
 ### Entering Bootloader Mode
 
-Enter the bootloader in 3 ways:
-
 - **Bootmagic reset**: Hold down ESC (top left key) and plug in the keyboard
-- **Physical reset button**: Briefly press the button on the back of the RP2040-Zero
-- **Keycode in layout**: Press the key mapped to `QK_BOOT` (available on Layer 1 left thumb and Layer 2 right thumb)
+- **Physical reset button**: Briefly press the button on the back of the controller
+- **Keycode in layout**: Press the key mapped to `QK_BOOT` if available in your keymap
 
-## Keymap Layouts
+### Split Keyboard Handedness
 
-### Layer 0 (Base Layer)
+For keyboards using **EE_HANDS** (a_test, charb_zero), flash handedness once using the `force_left` / `force_right` keymaps. After that, the default keymap can be flashed to either side. You only need to re-flash handedness if you clear EEPROM.
 
-```
-Left Half:                                          Right Half:
-┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐      ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│ ESC │  `  │  1  │  2  │  3  │  4  │  5  │      │  6  │  7  │  8  │  9  │  0  │  -  │  =  │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│ TAB │  Q  │  W  │  E  │  R  │  T  │BTN1 │      │BTN1 │  Y  │  U  │  I  │  O  │  P  │  \  │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│LSHFT│  A  │  S  │  D  │  F  │  G  │BTN2 │      │VOL+ │  H  │  J  │  K  │  L  │  ;  │ '⇧  │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│LSHFT│ Z⌃  │  X  │  C  │  V  │  B  │MUTE │      │VOL- │  N  │  M  │  ,  │  .  │  /  │RSHFT│
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│  ✗  │  ✗  │ ALT │ GUI │ SPC │LT1⏎ │  ✗  │      │  ✗  │LT2⏎ │BSPC │ GUI │ ALT │  ✗  │  ✗  │
-└─────┴─────┴─────┴─────┴─────┴─────┴─────┘      └─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-
-Legend:
-  Z⌃   = Hold: Left Ctrl, Tap: Z
-  '⇧   = Hold: Right Shift, Tap: '
-  LT1⏎ = Hold: Layer 1, Tap: Enter
-  LT2⏎ = Hold: Layer 2, Tap: Enter
-  BTN1/BTN2 = Mouse Buttons 1 & 2
-  ✗    = No key
-```
-
-### Layer 1 (Navigation & Brackets)
-
-```
-Left Half:                                          Right Half:
-┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐      ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│ TO0 │     │     │     │     │     │     │      │     │     │     │  (  │  )  │     │ TO1 │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │     │      │     │     │     │  [  │  ]  │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│CAPS │     │     │     │     │     │     │      │     │     │     │  {  │  }  │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│CAPS │     │     │     │     │     │BOOT │      │     │  ←  │  ↓  │  ↑  │  →  │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│  ✗  │  ✗  │     │     │     │     │  ✗  │      │  ✗  │  ←  │  ↓  │  ↑  │  →  │  ✗  │  ✗  │
-└─────┴─────┴─────┴─────┴─────┴─────┴─────┘      └─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-```
-
-### Layer 2 (Function Keys & Mouse)
-
-```
-Left Half:                                          Right Half:
-┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐      ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│ TO0 │     │ F1  │ F2  │ F3  │ F4  │ F5  │      │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ TO2 │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │ M↑  │     │     │     │      │     │     │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│CAPS │ M←← │ M←  │ M↓  │ M→  │ M→→ │     │      │     │WHL↓ │WHL↑ │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│CAPS │     │     │     │     │     │     │      │BOOT │  ←  │  ↓  │  ↑  │  →  │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│  ✗  │  ✗  │     │     │     │     │  ✗  │      │  ✗  │BTN1 │BTN2 │     │     │  ✗  │  ✗  │
-└─────┴─────┴─────┴─────┴─────┴─────┴─────┘      └─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-
-Legend:
-  M↑/↓/←/→ = Mouse cursor movement
-  M←← / M→→ = Mouse left/right (double speed)
-  WHL↓ / WHL↑ = Mouse wheel down/up
-```
-
-### Layer 3 (Auto-Mouse Layer)
-
-Automatically activated by trackball movement.
-
-```
-Left Half:                                          Right Half:
-┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐      ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│     │     │     │     │     │     │     │      │     │     │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │BTN1 │BTN1 │BTN1 │      │     │     │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │WHL← │WHL↓ │WHL↑ │WHL→ │BTN2 │      │     │     │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │     │      │     │     │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│  ✗  │  ✗  │     │     │     │     │  ✗  │      │  ✗  │     │     │     │     │  ✗  │  ✗  │
-└─────┴─────┴─────┴─────┴─────┴─────┴─────┘      └─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-
-Legend:
-  WHL↑/↓/←/→ = Mouse wheel up/down/left/right
-  BTN1/BTN2 = Mouse buttons 1 and 2
-```
-
-## Features
-
-### Caps Word
-
-Press both shift keys simultaneously to activate Caps Word mode. This capitalizes letters until you press space, enter, or any non-letter key.
-
-### Auto-Mouse Layer
-
-Moving the trackball automatically activates Layer 3 (mouse layer) for easy access to mouse buttons and scroll wheels.
-
-## Hardware Details
-
-### Wiring
-
-**Left Half:**
-
-- **Rows**: GP11, GP12, GP13, GP14, GP15
-- **Columns**: GP4, GP5, GP6, GP7, GP8, GP9, GP10
-- **Serial TX**: GP0
-- **Serial RX**: GP1
-
-**Right Half:**
-
-- **Rows**: GP11, GP12, GP13, GP14, GP15
-- **Columns**: GP4, GP5, GP6, GP7, GP8, GP9, GP10
-- **Serial TX**: GP0
-- **Serial RX**: GP1
-- **SPI (Trackball)**:
-  - SCK: GP18
-  - MOSI: GP19
-  - MISO: GP20
-  - CS: GP21
-
-### Components
-
-- **Microcontrollers**: 2× Waveshare RP2040-Zero
-- **Trackball Sensor**: PMW3389 (high-precision optical sensor)
-- **Switches**: 70× mechanical switches (your choice)
-- **Diodes**: 70× 1N4148 diodes
-- **TRRS Cable**: For connecting the two halves
+For **ergo_skree_v1**, handedness is determined by a solder jumper on GP28 — no special keymap needed.
 
 ## Additional Resources
 
@@ -222,7 +91,6 @@ Moving the trackball automatically activates Layer 3 (mouse layer) for easy acce
 - [QMK Build Environment Setup](https://docs.qmk.fm/#/getting_started_build_tools)
 - [QMK Newbs Guide](https://docs.qmk.fm/#/newbs)
 - [Ryan is cool's Cosmos Generator](https://ryanis.cool/cosmos/beta)
+- [TheBigSkree Pico Flex](https://skree.us/products/pico-flex)
 
 ## License
-
-GPL-2.0-or-later

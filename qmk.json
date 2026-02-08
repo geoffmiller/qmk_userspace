@@ -1,7 +1,13 @@
 {
-    "userspace_version": "1.0.0",
-    "build_targets": [
-        ["handwired/a_test", "force_left"],
-        ["handwired/a_test", "force_right"]
-    ]
+  "userspace_version": "1.0",
+  "build_targets": [
+    ["handwired/a_test", "force_left"],
+    ["handwired/a_test", "force_right"],
+    ["handwired/charybdis_rp2040_zero", "default"],
+    ["handwired/charybdis_rp2040_zero", "force_left"],
+    ["handwired/charybdis_rp2040_zero", "force_right"],
+    ["handwired/charb_zero", "default"],
+    ["handwired/pmw3389_tb_tester", "default"],
+    ["handwired/ergo_skree_v1", "default"]
+  ]
 }
