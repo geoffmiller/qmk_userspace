@@ -28,9 +28,6 @@
       "resync": true
     }
   },
-  "tapping": {
-    "term": 200
-  },
   "split": {
     "enabled": true,
     "serial": {
