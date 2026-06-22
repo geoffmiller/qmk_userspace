@@ -1,11 +1,11 @@
 # Charb Zero Wiring Guide
 
-This document describes the wiring for the Charb Zero split keyboard using two Waveshare RP2040-Zero microcontrollers with a PMW3360 trackball on the right side.
+This document describes the wiring for the Charb Zero split keyboard using two Waveshare RP2040-Zero microcontrollers with a PMW3389 trackball on the right side.
 
 ## Overview
 
 - **Left side**: 5 rows × 6 columns (30 keys)
-- **Right side**: 5 rows × 6 columns (30 keys) + PMW3360 trackball
+- **Right side**: 5 rows × 6 columns (30 keys) + PMW3389 trackball
 - **Communication**: Full-duplex UART via TRRS cable
 - **Master**: Right side (has trackball)
 
@@ -90,7 +90,7 @@ Based on the Waveshare RP2040-Zero:
 | Row 3    | GP12     | NM,. row      |
 | Row 4    | GP13     | Thumb row     |
 
-### Trackball (PMW3360) - Right Side Only
+### Trackball (PMW3389) - Right Side Only
 
 | Sensor Pin | GPIO Pin | RP2040 Function |
 | ---------- | -------- | --------------- |
@@ -101,7 +101,7 @@ Based on the Waveshare RP2040-Zero:
 | VCC        | 3V3      | 3.3V Power      |
 | GND        | GND      | Ground          |
 
-> **Note**: The PMW3360 uses the SPI1 peripheral on the RP2040-Zero.
+> **Note**: The PMW3389 uses the SPI1 peripheral on the RP2040-Zero.
 
 ### TRRS Connection (Right Side)
 
@@ -169,4 +169,4 @@ D = Diode (cathode towards row, COL2ROW configuration)
 1. **Diode Direction**: COL2ROW - cathode (black band) towards the row pin
 2. **Handedness**: Uses EE_HANDS - flash left/right handedness to EEPROM
 3. **Hot Swap Warning**: Always disconnect USB before connecting/disconnecting TRRS cable
-4. **Trackball Orientation**: Default config has -90° rotation and X inversion - adjust in `config.h` if needed
+4. **Trackball Orientation**: Default config has -45° rotation and X inversion - adjust in `config.h` if needed

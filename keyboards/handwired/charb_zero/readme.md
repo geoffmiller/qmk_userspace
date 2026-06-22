@@ -52,7 +52,7 @@ A split ergonomic keyboard based on the Charybdis 4x6 layout with a PMW3389 trac
 ## Building
 
 ```bash
-qmk compile -kb handwired/charb_test -km default
+qmk compile -kb handwired/charb_zero -km default
 ```
 
 ## Flashing
@@ -68,10 +68,10 @@ For EEPROM handedness (first time only):
 
 ```bash
 # Left side
-qmk flash -kb handwired/charb_test -km default -bl uf2-split-left
+qmk flash -kb handwired/charb_zero -km default -bl uf2-split-left
 
 # Right side
-qmk flash -kb handwired/charb_test -km default -bl uf2-split-right
+qmk flash -kb handwired/charb_zero -km default -bl uf2-split-right
 ```
 
 ## Features
