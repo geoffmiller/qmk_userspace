@@ -8,6 +8,7 @@ This repository contains my personal QMK keyboard configurations using the QMK U
 | ----------------------------------------------------------- | ---- | ------------------- | ---------------- | ---------- | --- |
 | [a_test](keyboards/handwired/a_test/)                       | 70   | Raspberry Pi Pico   | ✅ UART / TRRS   | Right side | ❌  |
 | [charb_zero](keyboards/handwired/charb_zero/)               | 60   | RP2040-Zero         | ✅ UART / TRRS   | Right side | ❌  |
+| [charbkineticv2](keyboards/cosmos/charbkineticv2/)          | 55   | RP2040              | ✅ USART         | Right side | ✅  |
 | [ergo_skree_v1](keyboards/handwired/ergo_skree_v1/)         | 72   | Pi Pico + Pico Flex | ✅ USART / USB-C | Both sides | ✅  |
 | [pmw3389_tb_tester](keyboards/handwired/pmw3389_tb_tester/) | 1    | RP2040-Zero         | ❌               | Yes        | ❌  |
 
@@ -22,6 +23,12 @@ A handwired 5×7 split ergonomic keyboard generated with the [Cosmos Dactyl gene
 ![Charb Zero](./images/charb_zero.png)
 
 A Charybdis-style 4×6 split ergonomic keyboard. 60 keys, PMW3389 trackball on the right side, full-duplex USART over TRRS, auto-mouse layer, and Caps Word.
+
+### [charbkineticv2](keyboards/cosmos/charbkineticv2/) - Cosmos Split with VIK
+
+![Charb Kinetic V2](./images/charbkineticv2.png)
+
+A split ergo generated with the [Cosmos generator](https://ryanis.cool/cosmos). 55 keys, PMW3389 trackball on the right side, 98 per-key RGB LEDs with automatic power cutoff, a [VIK](https://github.com/sadekbaroudi/vik) expansion connector per half, VIA support, auto-mouse layer, drag scroll, and timeless home row mods.
 
 ### [ergo_skree_v1](keyboards/handwired/ergo_skree_v1/) - Kinesis Advantage Style
 
@@ -82,6 +89,8 @@ qmk flash -kb handwired/<keyboard_name> -km default
 ### Split Keyboard Handedness
 
 For keyboards using **EE_HANDS** (a_test, charb_zero), flash handedness once using the `force_left` / `force_right` keymaps. After that, the default keymap can be flashed to either side. You only need to re-flash handedness if you clear EEPROM.
+
+**charbkineticv2** also uses EE_HANDS, but sets handedness with the `uf2-split-left` / `uf2-split-right` bootloader targets instead — see its [readme](keyboards/cosmos/charbkineticv2/readme.md).
 
 For **ergo_skree_v1**, handedness is determined by a solder jumper on GP28 — no special keymap needed.
 
