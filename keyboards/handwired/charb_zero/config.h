@@ -24,13 +24,16 @@
 #define POINTING_DEVICE_RIGHT
 
 /* SPI1 configuration for PMW3389 trackball
- * Wiring: MISO=GP8, SCK=GP15, MOSI=GP14, CS=GP27
+ * Wiring: MISO=GP8, SCK=GP14, MOSI=GP15, CS=GP27
  */
 #define SPI_DRIVER SPID1
-#define SPI_SCK_PIN GP15
-#define SPI_MOSI_PIN GP14
+#define SPI_SCK_PIN GP14
+#define SPI_MOSI_PIN GP15
 #define SPI_MISO_PIN GP8
 #define POINTING_DEVICE_CS_PIN GP27
+
+/* PMW3389 sensor settings */
+#define PMW33XX_CS_PIN POINTING_DEVICE_CS_PIN
 
 /* Trackball rotation and inversion (adjust based on physical orientation) */
 #define ROTATIONAL_TRANSFORM_ANGLE -45
@@ -43,3 +46,10 @@
 /* Double-tap reset for RP2040 UF2 bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
+
+// Timeless Home Row Mods (urob/pgetreuer config)
+#define TAPPING_TERM 250
+#define PERMISSIVE_HOLD
+#define FLOW_TAP_TERM 150
+#define CHORDAL_HOLD
+#define SPECULATIVE_HOLD
